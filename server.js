@@ -7,9 +7,9 @@ var Storage = function() {
     this.id = 0;
 }
 
-Storage.prototype.add = function(name) {
+Storage.prototype.add = function(name, id) {
     
-    var item = {name: name, id: this.id};
+    var item = {name: name, id: parseInt((id || this.id))};
     this.items.push(item);
     this.id += 1;
     return item;
@@ -27,12 +27,26 @@ Storage.prototype.delete = function(id) {
 
 }
 
-
 Storage.prototype.update = function(id, name) {
     
-    this.items[id].name = name;
+    if (this.hasId(id)) {
+        this.items[id].name = name;
+    } else {
+        this.add(name, id);
+    }
     return;
 
+}
+
+Storage.prototype.hasId = function(id) {
+    var length = this.items.length;
+    
+    for (var i=0; i < length; i++) {
+        if (this.items[i].id == id){
+            return true;
+        };
+    }; 
+ 
 }
 
 var storage = new Storage();
