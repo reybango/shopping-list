@@ -30,7 +30,7 @@ Storage.prototype.delete = function(id) {
 
 Storage.prototype.update = function(id, name) {
     
-    this.items[id-1].name = name;
+    this.items[id].name = name;
     return;
 
 }
@@ -69,7 +69,7 @@ app.delete('/items/:id', function(req,res){
 app.put('/items/:id', jsonParser, function(req,res){
  
     if(!req.body) {
-       return res.sendStatus(400)
+       return res.sendStatus(400).send('Nope');
    }
  
    storage.update(req.params.id, req.body.name);
