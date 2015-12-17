@@ -18,18 +18,18 @@ Storage.prototype.add = function(name, id) {
 
 Storage.prototype.delete = function(id) {
     
-    var item = '', i = 0;
+    var item = '', idx = 0;
     
-    i = id - 1;
-    item = this.items[i].name
-    this.items.splice(i,1);
+    idx = this.findItem(id);
+    item = this.items[idx].name;
+    this.items.splice(idx,1);
     return item;
 
 }
 
 Storage.prototype.update = function(id, name) {
     
-    if (this.hasId(id)) {
+    if (this.findItem(id) !== null) {
         this.items[id].name = name;
     } else {
         this.add(name, id);
@@ -38,15 +38,14 @@ Storage.prototype.update = function(id, name) {
 
 }
 
-Storage.prototype.hasId = function(id) {
+Storage.prototype.findItem = function(id) {
     var length = this.items.length;
     
-    for (var i=0; i < length; i++) {
-        if (this.items[i].id == id){
-            return true;
+    for (var idx=0; idx < length; idx++) {
+        if (this.items[idx].id === id){
+            return idx;
         };
     }; 
- 
 }
 
 var storage = new Storage();
@@ -75,7 +74,7 @@ app.post('/items', jsonParser, function(req,res){
 app.delete('/items/:id', function(req,res){
    
    var id = req.params.id, item = '';
-   item = storage.delete(id);
+   item = storage.delete(parseInt(id));
    res.status(200).send(item); 
 
 });
