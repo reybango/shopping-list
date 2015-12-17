@@ -5,7 +5,7 @@ var jsonParser = bodyParser.json();
 var Storage = function() {
     this.items = [];
     this.id = 0;
-}
+};
 
 Storage.prototype.add = function(name, id) {
     
@@ -14,7 +14,7 @@ Storage.prototype.add = function(name, id) {
     this.id += 1;
     return item;
 
-}
+};
 
 Storage.prototype.delete = function(id) {
     
@@ -25,7 +25,7 @@ Storage.prototype.delete = function(id) {
     this.items.splice(idx,1);
     return item;
 
-}
+};
 
 Storage.prototype.update = function(id, name) {
     
@@ -36,7 +36,7 @@ Storage.prototype.update = function(id, name) {
     }
     return;
 
-}
+};
 
 Storage.prototype.findItem = function(id) {
     var length = this.items.length;
@@ -44,9 +44,9 @@ Storage.prototype.findItem = function(id) {
     for (var idx=0; idx < length; idx++) {
         if (this.items[idx].id === id){
             return idx;
-        };
-    }; 
-}
+        }
+    } 
+};
 
 var storage = new Storage();
 storage.add('Broad beans');
@@ -58,40 +58,40 @@ app.use(express.static('public'));
 
 app.get('/items', function(req, res){
    
-   res.json(storage.items); 
+    res.json(storage.items); 
     
 });
 
 app.post('/items', jsonParser, function(req,res){
-   if(!req.body) {
-       return res.sendStatus(400)
-   }
-   
-   var item = storage.add(req.body.name);
-   res.status(201).json(item); 
+    if(!req.body) {
+        return res.sendStatus(400);
+    }
+    
+    var item = storage.add(req.body.name);
+    res.status(201).json(item); 
 });
 
 app.delete('/items/:id', function(req,res){
    
-   var id = req.params.id, item = '';
-   item = storage.delete(parseInt(id));
-   res.status(200).send(item); 
+    var id = req.params.id, item = '';
+    item = storage.delete(parseInt(id));
+    res.status(200).send(item); 
 
 });
 
 app.put('/items/:id', jsonParser, function(req,res){
  
     if(!req.body) {
-       return res.sendStatus(400).send('Nope');
-   }
+        return res.sendStatus(400).send('Nope');
+    }
  
-   storage.update(req.params.id, req.body.name);
-   res.status(200).send(req.body.name); 
+    storage.update(req.params.id, req.body.name);
+    res.status(200).send(req.body.name); 
 
 });
 
 
 app.listen(process.env.PORT || 8080, function(){
-  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
 });
 
