@@ -18,7 +18,7 @@ Storage.prototype.add = function(name, id) {
 
 Storage.prototype.delete = function(id) {
     
-    var item = '', idx = 0;
+    var item = '', idx = 0; 
     
     idx = this.findItem(id);
     item = this.items[idx].name;
@@ -29,8 +29,12 @@ Storage.prototype.delete = function(id) {
 
 Storage.prototype.update = function(id, name) {
     
-    if (this.findItem(id) !== null) {
-        this.items[id].name = name;
+    var idx = 0;
+    
+    idx = this.findItem(id);
+    
+    if ( idx !== null) {
+        this.items[idx].name = name;
     } else {
         this.add(name, id);
     }
@@ -85,7 +89,7 @@ app.put('/items/:id', jsonParser, function(req,res){
         return res.sendStatus(400).send('Nope');
     }
  
-    storage.update(req.params.id, req.body.name);
+    storage.update(parseInt(req.params.id), req.body.name);
     res.status(200).send(req.body.name); 
 
 });
