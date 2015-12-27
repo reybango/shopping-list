@@ -53,7 +53,7 @@ Storage.prototype.findItem = function(id) {
 };
 
 var storage = new Storage();
-storage.add('Broad beans');
+storage.add('Broad Beans');
 storage.add('Tomatoes');
 storage.add('Peppers');
 
@@ -104,3 +104,5 @@ app.listen(process.env.PORT || 8080, function(){
     console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
 });
 
+exports.app = app;
+exports.storage = storage;
