@@ -60,12 +60,15 @@ storage.add('Peppers');
 var app = express();
 app.use(express.static('public'));
 
+
+//Grab the list of items
 app.get('/items', function(req, res){
    
     res.json(storage.items); 
     
 });
 
+// Add a new item
 app.post('/items', jsonParser, function(req,res){
     if(!req.body) {
         return res.sendStatus(400);
@@ -75,6 +78,7 @@ app.post('/items', jsonParser, function(req,res){
     res.status(201).json(item); 
 });
 
+// Delete an existing item
 app.delete('/items/:id', function(req,res){
    
     var id = req.params.id, item = '';
@@ -83,6 +87,7 @@ app.delete('/items/:id', function(req,res){
 
 });
 
+// Edit an item 
 app.put('/items/:id', jsonParser, function(req,res){
  
     if(!req.body) {
@@ -94,7 +99,7 @@ app.put('/items/:id', jsonParser, function(req,res){
 
 });
 
-
+// Express sets the port and listens for requests
 app.listen(process.env.PORT || 8080, function(){
     console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
 });
