@@ -66,7 +66,14 @@ describe('Shopping List', function() {
                 should.equal(err, null);
                 res.should.have.status(200);
                 res.should.be.json;   
-                res.body.name.should.equal('Kale');                                             
+                res.body.name.should.equal('Kale');   
+                storage.items.should.be.a('array');
+                storage.items[0].should.be.a('object');
+                storage.items[0].should.have.property('id');
+                storage.items[0].should.have.property('name');
+                storage.items[0].id.should.be.a('number');
+                storage.items[0].name.should.be.a('string');
+                storage.items[0].name.should.equal('Broad Beans');                                                          
                 done();
             });
     });
