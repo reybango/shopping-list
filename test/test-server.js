@@ -60,7 +60,7 @@ describe('Shopping List', function() {
 
     it('should edit an item on PUT', function(done) {
         chai.request(app)
-            .put('/items/1')
+            .put('/items/0')
             .send({'name': 'Kale'})
             .end(function(err, res){
                 should.equal(err, null);
@@ -73,10 +73,21 @@ describe('Shopping List', function() {
                 storage.items[0].should.have.property('name');
                 storage.items[0].id.should.be.a('number');
                 storage.items[0].name.should.be.a('string');
-                storage.items[0].name.should.equal('Broad Beans');                                                          
+                storage.items[0].name.should.equal('Kale');                                                          
                 done();
             });
     });
 
-    it('should delete an item on DELETE');
+    it('should delete an item on DELETE', function(done) {
+        chai.request(app)
+            .delete('/items/0')
+            .end(function(err, res){
+                should.equal(err, null);
+                res.should.have.status(200);
+                res.should.be.json;
+                storage.items.should.be.a('array');
+                storage.items.should.have.length(2);                   
+                done();
+            });
+    });
 });

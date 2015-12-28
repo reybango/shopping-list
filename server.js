@@ -23,7 +23,7 @@ Storage.prototype.delete = function(id) {
     idx = this.findItem(id);
     item = this.items[idx].name;
     this.items.splice(idx,1);
-    return item;
+    return {'id': id, 'name': item};
 
 };
 
@@ -83,7 +83,7 @@ app.delete('/items/:id', function(req,res){
    
     var id = req.params.id, item = '';
     item = storage.delete(parseInt(id));
-    res.status(200).send(item); 
+    res.status(200).json(item); 
 
 });
 
