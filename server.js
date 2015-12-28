@@ -95,7 +95,7 @@ app.put('/items/:id', jsonParser, function(req,res){
     }
  
     storage.update(parseInt(req.params.id), req.body.name);
-    res.status(200).send(req.body.name); 
+    res.status(200).json({'name': req.body.name}); 
 
 });
 

@@ -23,19 +23,19 @@ describe('Shopping List', function() {
                 res.body[0].should.have.property('id');
                 res.body[0].should.have.property('name');
                 res.body[0].id.should.be.a('number');
-                res.body[0].name.should.be.a('string');                
-                res.body[0].name.should.equal('Broad Beans');       
+                res.body[0].name.should.be.a('string');
+                res.body[0].name.should.equal('Broad Beans');
                 res.body[1].name.should.equal('Tomatoes');
-                res.body[2].name.should.equal('Peppers');                                                                                                                   
+                res.body[2].name.should.equal('Peppers');
                 done();
-            });        
+            });
     });
-    
+
     it('should add an item on POST', function(done) {
         chai.request(app)
             .post('/items')
             .send({'name': 'Kale'})
-            .end(function(err, res){ 
+            .end(function(err, res){
                 should.equal(err, null);
                 res.should.have.status(201);
                 res.should.be.json;
@@ -54,10 +54,22 @@ describe('Shopping List', function() {
                 storage.items[3].name.should.be.a('string');
                 storage.items[3].name.should.equal('Kale');
                 done();
-            });   
+            });
     });
- 
-    
-    it('should edit an item on PUT');
+
+
+    it('should edit an item on PUT', function(done) {
+        chai.request(app)
+            .put('/items/1')
+            .send({'name': 'Kale'})
+            .end(function(err, res){
+                should.equal(err, null);
+                res.should.have.status(200);
+                res.should.be.json;   
+                res.body.name.should.equal('Kale');                                             
+                done();
+            });
+    });
+
     it('should delete an item on DELETE');
 });
