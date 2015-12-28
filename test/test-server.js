@@ -79,6 +79,7 @@ describe('Shopping List', function() {
     });
 
     it('should delete an item on DELETE', function(done) {
+        storage.reset();
         chai.request(app)
             .delete('/items/0')
             .end(function(err, res){

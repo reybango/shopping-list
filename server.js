@@ -52,10 +52,19 @@ Storage.prototype.findItem = function(id) {
     } 
 };
 
+Storage.prototype.reset = function() {
+    if (this.items.length > 0) {
+        this.items = [];
+        this.id = 0;
+    }
+    this.add('Broad Beans');
+    this.add('Tomatoes');
+    this.add('Peppers');
+};
+
+
 var storage = new Storage();
-storage.add('Broad Beans');
-storage.add('Tomatoes');
-storage.add('Peppers');
+storage.reset();
 
 var app = express();
 app.use(express.static('public'));
