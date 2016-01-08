@@ -53,10 +53,9 @@ Storage.prototype.findItem = function(id) {
 };
 
 Storage.prototype.reset = function() {
-    if (this.items.length > 0) {
-        this.items = [];
-        this.id = 0;
-    }
+    this.items = [];
+    this.id = 0;
+
     this.add('Broad Beans');
     this.add('Tomatoes');
     this.add('Peppers');
